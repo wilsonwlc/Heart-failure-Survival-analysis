@@ -25,9 +25,8 @@ The dataset is downloaded from a research paper ["Survival analysis of heart fai
 - `2 - Result/`: Contains Jupyter notebooks implementing the analysis pipeline, from data preprocessing to final statistical analysis and visualization.
 
 ## Conclusion
-* A one-unit increase in normalised age was associated with a more than sevenfold increase in the hazard of the event (Hazard Ratio [HR] = 7.04, p < 0.001), indicating a strong positive association with risk.
-* Participants with an ejection fraction of 40–49% exhibited a 59% reduction in hazard compared to the reference group (<40%) (HR = 0.41, p = 0.013).
-* An ejection fraction of 50–74% was associated with a 47% lower hazard relative to the reference group (HR = 0.53, p = 0.042), supporting the protective effect of higher ejection fraction.
-* Individuals in the elevated blood pressure group demonstrated a 67% higher hazard in comparison to the reference category (HR = 1.68, p = 0.015), suggesting increased cardiovascular risk.
-* Each unit increase in the logarithm of serum creatinine was associated with a 137% increase in hazard (HR = 2.37, p < 0.001), highlighting impaired renal function as a significant risk factor.
-* The presence of anaemia was associated with a 55% increase in hazard compared to individuals without anaemia (HR = 1.55, p = 0.038), suggesting a meaningful adverse prognostic impact.
+* A one-unit increase in normalised age was associated with a more than eightfold increase in the hazard of the event (Hazard Ratio [HR] = 8.03, p < 0.001), indicating a strong positive association with risk.
+* Participants with an ejection fraction of 40–49% exhibited a 60% reduction in hazard compared to the reference group (<40%) (HR = 0.40, p = 0.009).
+* An ejection fraction of 50–74% was associated with a 51% lower hazard relative to the reference group (HR = 0.49, p = 0.017), supporting the protective effect of higher ejection fraction.
+* Individuals in the elevated blood pressure group demonstrated a 62% higher hazard in comparison to the reference category (HR = 1.62, p = 0.022), suggesting increased cardiovascular risk.
+* Each unit increase in the logarithm of serum creatinine was associated with a 169% increase in hazard (HR = 2.69, p < 0.001), highlighting impaired renal function as a significant risk factor.
