@@ -19,10 +19,12 @@ The dataset is downloaded from a research paper ["Survival analysis of heart fai
 * `cpk`: It stands for [creatine phosphokinase](https://www.webmd.com/a-to-z-guides/what-is-the-cpk-enzyme-test). High levels of CPK usually indicate some sort of stress or injury to your heart or other muscles. In the hospital, a person’s CK-MB level is often checked when they exhibit signs of heart attack. Its normal values should range from 10 to 120 micrograms per litre (mcg/L). High CPK can indicate heart attack
 
 ## File structure
-- `data/S1Data.csv`: Dataset used for the analysis containing patient information including survival time, event status, and various clinical measurements.
-- `research paper/paper - cox regression.pdf`: Research paper titled "Survival Analysis of Heart Failure Patients: A Case Study," authored by Ahmad T., Munir A., Bhatti S.H., Aftab M., and Raza M.A.
 - `1 - Method/`: Contains documentation files explaining the statistical methods used in the analysis, including Kaplan-Meier estimator, log-rank test, and Cox regression.
-- `2 - Result/`: Contains Jupyter notebooks implementing the analysis pipeline, from data preprocessing to final statistical analysis and visualization.
+- `2 - Analysis/`: 
+    - `R/`: Contains Jupyter notebooks implementing the full analysis pipeline, including data preprocessing, statistical analysis and data visualisation.
+    - `SAS`: Contains SAS scripts and their corresponding HTML outputs. These files perform the same analyses as the R notebooks
+    - `data/`: Contains `S1Data.csv`, the raw dataset used in the analysis.
+- `research paper/paper - cox regression.pdf`: Research paper titled "Survival Analysis of Heart Failure Patients: A Case Study," authored by Ahmad T., Munir A., Bhatti S.H., Aftab M., and Raza M.A.
 
 ## Conclusion
 * A one-unit increase in normalised age was associated with a more than eightfold increase in the hazard of the event (Hazard Ratio [HR] = 8.03, p < 0.001), indicating a strong positive association with risk.
