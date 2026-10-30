@@ -22,7 +22,7 @@ The dataset is downloaded from a research paper ["Survival analysis of heart fai
 - `1 - Method/`: Contains documentation files explaining the statistical methods used in the analysis, including Kaplan-Meier estimator, log-rank test, and Cox regression.
 - `2 - Analysis/`: 
     - `R/`: Contains Jupyter notebooks implementing the full analysis pipeline, including data preprocessing, statistical analysis and data visualisation.
-    - `SAS`: Contains SAS scripts and their corresponding HTML outputs. These files perform the same analyses as the R notebooks
+    - `SAS/`: Contains SAS scripts and their corresponding HTML outputs. These files perform the same analyses as the R notebooks
     - `data/`: Contains `S1Data.csv`, the raw dataset used in the analysis.
 - `research paper/paper - cox regression.pdf`: Research paper titled "Survival Analysis of Heart Failure Patients: A Case Study," authored by Ahmad T., Munir A., Bhatti S.H., Aftab M., and Raza M.A.
 
