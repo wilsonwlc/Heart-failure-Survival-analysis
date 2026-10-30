@@ -1,0 +1,2054 @@
+<!DOCTYPE html>
+<html class="ods_7e04f9bb-48fb-4407-ac26-1fc28112b352" lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8"/>
+<meta content="SAS 9.4" name="generator"/>
+<title>Results: Survival analysis - part 1.sas</title>
+<style>
+/*<![CDATA[*/
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .body.c section > table, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .body.c section > pre, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .body.c div > table,
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .body.c div > pre, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .body.c article > table, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .body.c article > pre,
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .body.j section > table, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .body.j section > pre, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .body.j div > table,
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .body.j div > pre, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .body.j article > table, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .body.j article > pre,
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .body.c p.note, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .body.c p.warning, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .body.c p.error, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .body.c p.fatal,
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .body.j p.note, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .body.j p.warning, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .body.j p.error, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .body.j p.fatal,
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .body.c > table.layoutcontainer, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .body.j > table.layoutcontainer { margin-left: auto; margin-right: auto }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .layoutregion.l table, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .layoutregion.l pre, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .layoutregion.l p.note,
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .layoutregion.l p.warning, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .layoutregion.l p.error, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .layoutregion.l p.fatal { margin-left: 0 }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .layoutregion.c table, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .layoutregion.c pre, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .layoutregion.c p.note,
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .layoutregion.c p.warning, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .layoutregion.c p.error, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .layoutregion.c p.fatal { margin-left: auto; margin-right: auto }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .layoutregion.r table, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .layoutregion.r pre, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .layoutregion.r p.note,
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .layoutregion.r table, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .layoutregion.r pre, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .layoutregion.r p.note,
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .layoutregion.r p.warning, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .layoutregion.r p.error, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .layoutregion.r p.fatal { margin-right: 0 }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 article, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 aside, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 details, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 figcaption, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 figure, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 footer, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 header, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 hgroup, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 nav, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 section { display: block }
+html.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 { font-size: 100% }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .body { margin: 1em; font-size: 13px; line-height: 1.231 }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 sup { position: relative; vertical-align: baseline; bottom: 0.25em; font-size: 0.8em }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 sub { position: relative; vertical-align: baseline; top: 0.25em; font-size: 0.8em }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 ul, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 ol { margin: 1em 0; padding: 0 0 0 40px }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 dd { margin: 0 0 0 40px }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 nav ul, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 nav ol { list-style: none; list-style-image: none; margin: 0; padding: 0 }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 img { border: 0; vertical-align: middle }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 svg:not(:root) { overflow: hidden }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 figure { margin: 0 }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 table { border-collapse: collapse; border-spacing: 0 }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .layoutcontainer { border-collapse: separate; border-spacing: 0 }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 p { margin-top: 0; text-align: left }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 h1.heading1 { text-align: left }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 h2.heading2 { text-align: left }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 h3.heading3 { text-align: left }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 h4.heading4 { text-align: left }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 h5.heading5 { text-align: left }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 h6.heading6 { text-align: left }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 span { text-align: left }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 table { margin-bottom: 1em }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 td, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 th { text-align: left; padding: 3px 6px; vertical-align: top }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 td[class$="fixed"], .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 th[class$="fixed"] { white-space: pre }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 section, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 article { padding-top: 1px; padding-bottom: 8px }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 hr.pagebreak { height: 0px; border: 0; border-bottom: 1px solid #c0c0c0; margin: 1em 0 }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .stacked-value { text-align: left; display: block }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .stacked-cell > .stacked-value, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 td.data > td.data, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 th.data > td.data, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 th.data > th.data, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 td.data > th.data, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 th.header > th.header { border: 0 }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .stacked-cell > div.data { border-width: 0 }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .systitleandfootercontainer { white-space: nowrap; margin-bottom: 1em }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .systitleandfootercontainer > p { margin: 0 }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .systitleandfootercontainer > p > span { display: inline-block; width: 100%; white-space: normal }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .batch { display: table }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .toc { display: none }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .proc_note_group, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .proc_title_group { margin-bottom: 1em }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 p.proctitle { margin: 0 }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 p.note, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 p.warning, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 p.error, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 p.fatal { display: table }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .notebanner, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .warnbanner, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .errorbanner, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .fatalbanner,
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .notecontent, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .warncontent, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .errorcontent, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .fatalcontent { display: table-cell; padding: 0.5em }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .notebanner, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .warnbanner, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .errorbanner, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .fatalbanner { padding-right: 0 }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .body > div > ol li { text-align: left }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .beforecaption > h4 { margin-top: 0; margin-bottom: 0 }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .c { text-align: center }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .r { text-align: right }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .l { text-align: left }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .j { text-align: justify }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .d { text-align: right }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .b { vertical-align: bottom }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .m { vertical-align: middle }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .t { vertical-align: top }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .accessiblecaption {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 a:active { color: #800080 }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .aftercaption {
+    background-color: #fafbfe;
+    border-spacing: 0;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+    padding-top: 4pt;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .batch > colgroup {
+    border-left: 1px solid #c1c1c1;
+    border-right: 1px solid #c1c1c1;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .batch > tbody, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .batch > thead, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .batch > tfoot {
+    border-top: 1px solid #c1c1c1;
+    border-bottom: 1px solid #c1c1c1;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .batch { border: hidden; }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .batch {
+    background-color: #fafbfe;
+    border: 1px solid #c1c1c1;
+    border-collapse: separate;
+    border-spacing: 1px;
+    color: #000000;
+    font-family: 'SAS Monospace', 'Courier New', Courier, monospace;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    padding: 7px;
+    }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .beforecaption {
+    background-color: #fafbfe;
+    border-spacing: 0;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .body {
+    background-color: #fafbfe;
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .bodydate {
+    background-color: #fafbfe;
+    border-spacing: 0;
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    text-align: right;
+    vertical-align: top;
+    width: 100%;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .bycontentfolder {
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    list-style-type: none;
+    margin-left: 6pt;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .byline {
+    background-color: #fafbfe;
+    border-spacing: 0;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .bylinecontainer > col, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .bylinecontainer > colgroup > col, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .bylinecontainer > colgroup, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .bylinecontainer > tr, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .bylinecontainer > * > tr, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .bylinecontainer > thead, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .bylinecontainer > tbody, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .bylinecontainer > tfoot { border: none; }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .bylinecontainer {
+    background-color: #fafbfe;
+    border: none;
+    border-spacing: 1px;
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    width: 100%;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .caption {
+    background-color: #fafbfe;
+    border-spacing: 0;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .cell, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .container {
+    background-color: #fafbfe;
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .contentfolder, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .contentitem {
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    list-style-type: none;
+    margin-left: 6pt;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .contentproclabel, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .contentprocname {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .contents {
+    background-color: #fafbfe;
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    list-style-type: decimal;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .contentsdate {
+    background-color: #fafbfe;
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    width: 100%;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .contenttitle {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: italic;
+    font-weight: bold;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .continued {
+    background-color: #fafbfe;
+    border-spacing: 0;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+    width: 100%;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .data, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .dataemphasis {
+    background-color: #ffffff;
+    border-color: #c1c1c1;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .dataemphasisfixed {
+    background-color: #ffffff;
+    border-color: #c1c1c1;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: x-small;
+    font-style: italic;
+    font-weight: normal;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .dataempty {
+    background-color: #ffffff;
+    border-color: #c1c1c1;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .datafixed {
+    background-color: #ffffff;
+    border-color: #c1c1c1;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    font-family: 'Courier New', Courier;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .datastrong {
+    background-color: #ffffff;
+    border-color: #c1c1c1;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .datastrongfixed {
+    background-color: #ffffff;
+    border-color: #c1c1c1;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #000000;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .date {
+    background-color: #fafbfe;
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    width: 100%;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .document {
+    background-color: #fafbfe;
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .errorbanner {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .errorcontent {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .errorcontentfixed {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: 'Courier New', Courier;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .extendedpage {
+    background-color: #fafbfe;
+    border-style: solid;
+    border-width: 1pt;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: italic;
+    font-weight: normal;
+    text-align: center;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .fatalbanner {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .fatalcontent {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .fatalcontentfixed {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: 'Courier New', Courier;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .folderaction {
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    list-style-type: none;
+    margin-left: 6pt;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .footer {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .footeremphasis {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: italic;
+    font-weight: normal;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .footeremphasisfixed {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: x-small;
+    font-style: italic;
+    font-weight: normal;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .footerempty {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .footerfixed {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: 'Courier New', Courier;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .footerstrong {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .footerstrongfixed {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .frame {
+    background-color: #fafbfe;
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .graph > colgroup {
+    border-left: 1px solid #c1c1c1;
+    border-right: 1px solid #c1c1c1;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .graph > tbody, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .graph > thead, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .graph > tfoot {
+    border-top: 1px solid #c1c1c1;
+    border-bottom: 1px solid #c1c1c1;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .graph { border: hidden; }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .graph {
+    background-color: #fafbfe;
+    border: 1px solid #c1c1c1;
+    border-collapse: separate;
+    border-spacing: 1px;
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .header {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .headeremphasis {
+    background-color: #d8dbd3;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: italic;
+    font-weight: normal;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .headeremphasisfixed {
+    background-color: #d8dbd3;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #000000;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: x-small;
+    font-style: italic;
+    font-weight: normal;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .headerempty {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .headerfixed {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: 'Courier New', Courier;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .headersandfooters {
+    background-color: #edf2f9;
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .headerstrong {
+    background-color: #d8dbd3;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .headerstrongfixed {
+    background-color: #d8dbd3;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #000000;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .heading1, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .heading2, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .heading3, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .heading4, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .heading5, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .heading6 { font-family: Arial, Helvetica, sans-serif }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .index {
+    background-color: #fafbfe;
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .indexaction, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .indexitem {
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    list-style-type: none;
+    margin-left: 6pt;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .indexprocname {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .indextitle {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: italic;
+    font-weight: bold;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .layoutcontainer, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .layoutregion {
+    border-width: 0;
+    border-spacing: 30px;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .linecontent {
+    background-color: #fafbfe;
+    border-color: #c1c1c1;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 a:link { color: #0000ff }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .list {
+    background-color: #fafbfe;
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    list-style-type: disc;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .list10 {
+    background-color: #fafbfe;
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    list-style-type: square;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .list2 {
+    background-color: #fafbfe;
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    list-style-type: circle;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .list3, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .list4, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .list5, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .list6, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .list7, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .list8, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .list9 {
+    background-color: #fafbfe;
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    list-style-type: square;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .listitem {
+    background-color: #fafbfe;
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    list-style-type: disc;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .listitem10 {
+    background-color: #fafbfe;
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    list-style-type: square;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .listitem2 {
+    background-color: #fafbfe;
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    list-style-type: circle;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .listitem3, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .listitem4, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .listitem5, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .listitem6, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .listitem7, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .listitem8, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .listitem9 {
+    background-color: #fafbfe;
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    list-style-type: square;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .note {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .notebanner {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .notecontent {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .notecontentfixed {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: 'Courier New', Courier;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .output > colgroup {
+    border-left: 1px solid #c1c1c1;
+    border-right: 1px solid #c1c1c1;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .output > tbody, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .output > thead, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .output > tfoot {
+    border-top: 1px solid #c1c1c1;
+    border-bottom: 1px solid #c1c1c1;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .output { border: hidden; }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .output {
+    background-color: #fafbfe;
+    border: 1px solid #c1c1c1;
+    border-collapse: separate;
+    border-spacing: 1px;
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .pageno {
+    background-color: #fafbfe;
+    border-spacing: 0;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+    text-align: right;
+    vertical-align: top;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .pages {
+    background-color: #fafbfe;
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    list-style-type: decimal;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .pagesdate {
+    background-color: #fafbfe;
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    width: 100%;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .pagesitem {
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    list-style-type: none;
+    margin-left: 6pt;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .pagesproclabel, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .pagesprocname {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .pagestitle {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: italic;
+    font-weight: bold;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .paragraph {
+    background-color: #fafbfe;
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .parskip > col, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .parskip > colgroup > col, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .parskip > colgroup, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .parskip > tr, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .parskip > * > tr, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .parskip > thead, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .parskip > tbody, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .parskip > tfoot { border: none; }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .parskip {
+    border: none;
+    border-spacing: 0;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+    }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .prepage {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    text-align: left;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .proctitle {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .proctitlefixed {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .rowfooter {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .rowfooteremphasis {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: italic;
+    font-weight: normal;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .rowfooteremphasisfixed {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: x-small;
+    font-style: italic;
+    font-weight: normal;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .rowfooterempty {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .rowfooterfixed {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: 'Courier New', Courier;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .rowfooterstrong {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .rowfooterstrongfixed {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .rowheader {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .rowheaderemphasis {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: italic;
+    font-weight: normal;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .rowheaderemphasisfixed {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: x-small;
+    font-style: italic;
+    font-weight: normal;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .rowheaderempty {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .rowheaderfixed {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: 'Courier New', Courier;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .rowheaderstrong {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .rowheaderstrongfixed {
+    background-color: #edf2f9;
+    border-color: #b0b7bb;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: #112277;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .systemfooter, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .systemfooter10, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .systemfooter2, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .systemfooter3, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .systemfooter4, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .systemfooter5, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .systemfooter6, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .systemfooter7, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .systemfooter8, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .systemfooter9 {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .systemtitle, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .systemtitle10, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .systemtitle2, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .systemtitle3, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .systemtitle4, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .systemtitle5, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .systemtitle6, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .systemtitle7, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .systemtitle8, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .systemtitle9 {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .systitleandfootercontainer > col, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .systitleandfootercontainer > colgroup > col, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .systitleandfootercontainer > colgroup, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .systitleandfootercontainer > tr, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .systitleandfootercontainer > * > tr, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .systitleandfootercontainer > thead, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .systitleandfootercontainer > tbody, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .systitleandfootercontainer > tfoot { border: none; }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .systitleandfootercontainer {
+    background-color: #fafbfe;
+    border: none;
+    border-spacing: 1px;
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    width: 100%;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .table > col, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .table > colgroup > col {
+    border-left: 1px solid #c1c1c1;
+    border-right: 0 solid #c1c1c1;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .table > tr, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .table > * > tr {
+    border-top: 1px solid #c1c1c1;
+    border-bottom: 0 solid #c1c1c1;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .table { border: hidden; }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .table {
+    border-color: #c1c1c1;
+    border-style: solid;
+    border-width: 1px 0 0 1px;
+    border-collapse: collapse;
+    border-spacing: 0;
+    }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .titleandnotecontainer > col, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .titleandnotecontainer > colgroup > col, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .titleandnotecontainer > colgroup, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .titleandnotecontainer > tr, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .titleandnotecontainer > * > tr, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .titleandnotecontainer > thead, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .titleandnotecontainer > tbody, .ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .titleandnotecontainer > tfoot { border: none; }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .titleandnotecontainer {
+    background-color: #fafbfe;
+    border: none;
+    border-spacing: 1px;
+    color: #000000;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+    width: 100%;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .titlesandfooters {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .usertext {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 a:visited { color: #800080 }
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .warnbanner {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: bold;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .warncontent {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: Arial, 'Albany AMT', Helvetica, Helv;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+.ods_7e04f9bb-48fb-4407-ac26-1fc28112b352 .warncontentfixed {
+    background-color: #fafbfe;
+    color: #112277;
+    font-family: 'Courier New', Courier;
+    font-size: x-small;
+    font-style: normal;
+    font-weight: normal;
+}
+/*]]>*/
+</style>
+</head>
+<body class="body">
+<div id="div_7e04f9bb-48fb-4407-ac26-1fc28112b352" class="c body">
+<h1 class="body toc">Results: Survival analysis - part 1.sas</h1>
+<section data-name="Contents" data-sec-type="proc">
+<div id="IDX" class="proc_title_group">
+<p class="c proctitle">The CONTENTS Procedure</p>
+</div>
+<h1 class="contentprocname toc">The Contents Procedure</h1>
+<section>
+<h1 class="contentfolder toc">WORK.DF0</h1>
+<article aria-label="Varnum">
+<h1 class="contentitem toc">Varnum</h1>
+<table class="table" style="border-spacing: 0" aria-label="Varnum">
+<caption aria-label="Varnum"></caption>
+<colgroup><col/></colgroup><colgroup><col/><col/><col/><col/><col/></colgroup>
+<thead>
+<tr>
+<th class="c b header" colspan="6" scope="colgroup">Variables in Creation Order</th>
+</tr>
+<tr>
+<th class="r b header" scope="col">#</th>
+<th class="b header" scope="col">Variable</th>
+<th class="b header" scope="col">Type</th>
+<th class="r b header" scope="col">Len</th>
+<th class="b header" scope="col">Format</th>
+<th class="b header" scope="col">Informat</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="r rowheader" scope="row">1</th>
+<td class="data">TIME</td>
+<td class="data">Num</td>
+<td class="r data">8</td>
+<td class="data">BEST12.</td>
+<td class="data">BEST32.</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">2</th>
+<td class="data">Event</td>
+<td class="data">Num</td>
+<td class="r data">8</td>
+<td class="data">BEST12.</td>
+<td class="data">BEST32.</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">3</th>
+<td class="data">Gender</td>
+<td class="data">Num</td>
+<td class="r data">8</td>
+<td class="data">BEST12.</td>
+<td class="data">BEST32.</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">4</th>
+<td class="data">Smoking</td>
+<td class="data">Num</td>
+<td class="r data">8</td>
+<td class="data">BEST12.</td>
+<td class="data">BEST32.</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">5</th>
+<td class="data">Diabetes</td>
+<td class="data">Num</td>
+<td class="r data">8</td>
+<td class="data">BEST12.</td>
+<td class="data">BEST32.</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">6</th>
+<td class="data">BP</td>
+<td class="data">Num</td>
+<td class="r data">8</td>
+<td class="data">BEST12.</td>
+<td class="data">BEST32.</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">7</th>
+<td class="data">Anaemia</td>
+<td class="data">Num</td>
+<td class="r data">8</td>
+<td class="data">BEST12.</td>
+<td class="data">BEST32.</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">8</th>
+<td class="data">Age</td>
+<td class="data">Num</td>
+<td class="r data">8</td>
+<td class="data">BEST12.</td>
+<td class="data">BEST32.</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">9</th>
+<td class="data">Ejection_fraction</td>
+<td class="data">Num</td>
+<td class="r data">8</td>
+<td class="data">BEST12.</td>
+<td class="data">BEST32.</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">10</th>
+<td class="data">Sodium</td>
+<td class="data">Num</td>
+<td class="r data">8</td>
+<td class="data">BEST12.</td>
+<td class="data">BEST32.</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">11</th>
+<td class="data">Creatinine</td>
+<td class="data">Num</td>
+<td class="r data">8</td>
+<td class="data">BEST12.</td>
+<td class="data">BEST32.</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">12</th>
+<td class="data">platelets</td>
+<td class="data">Num</td>
+<td class="r data">8</td>
+<td class="data">BEST12.</td>
+<td class="data">BEST32.</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">13</th>
+<td class="data">CPK</td>
+<td class="data">Num</td>
+<td class="r data">8</td>
+<td class="data">BEST12.</td>
+<td class="data">BEST32.</td>
+</tr>
+</tbody>
+</table>
+</article>
+</section>
+</section>
+<section data-name="Means" data-sec-type="proc">
+<hr class="pagebreak"/>
+<div id="IDX1" class="proc_title_group">
+<p class="c proctitle">The MEANS Procedure</p>
+</div>
+<h1 class="contentprocname toc">The Means Procedure</h1>
+<article aria-label="Summary statistics">
+<h1 class="contentitem toc">Summary statistics</h1>
+<table class="table" style="border-spacing: 0" aria-label="Summary statistics">
+<caption aria-label="Summary statistics"></caption>
+<colgroup><col/></colgroup><colgroup><col/><col/></colgroup>
+<thead>
+<tr>
+<th class="b header" scope="col">Variable</th>
+<th class="r b header" scope="col">N</th>
+<th class="r b header" scope="col">N Miss</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="data">
+<div class="stacked-cell">
+<div>TIME</div>
+<div>Event</div>
+<div>Gender</div>
+<div>Smoking</div>
+<div>Diabetes</div>
+<div>BP</div>
+<div>Anaemia</div>
+<div>Age</div>
+<div>Ejection_fraction</div>
+<div>Sodium</div>
+<div>Creatinine</div>
+<div>platelets</div>
+<div>CPK</div>
+</div>
+</th>
+<td class="r data">
+<div class="stacked-cell">
+<div class="r">299</div>
+<div class="r">299</div>
+<div class="r">299</div>
+<div class="r">299</div>
+<div class="r">299</div>
+<div class="r">299</div>
+<div class="r">299</div>
+<div class="r">299</div>
+<div class="r">299</div>
+<div class="r">299</div>
+<div class="r">299</div>
+<div class="r">299</div>
+<div class="r">299</div>
+</div>
+</td>
+<td class="r data">
+<div class="stacked-cell">
+<div class="r">0</div>
+<div class="r">0</div>
+<div class="r">0</div>
+<div class="r">0</div>
+<div class="r">0</div>
+<div class="r">0</div>
+<div class="r">0</div>
+<div class="r">0</div>
+<div class="r">0</div>
+<div class="r">0</div>
+<div class="r">0</div>
+<div class="r">0</div>
+<div class="r">0</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</article>
+</section>
+<table class="c layoutcontainer" style="border-spacing: 30px" role="presentation">
+<colgroup><col/><col/><col/></colgroup>
+
+<tr class="layoutregion" style="border-spacing: 30px">
+<td class="c layoutregion" style="border-spacing: 30px"><section data-name="SGPlot" data-sec-type="proc">
+<h1 class="contentprocname toc">The SGPlot Procedure</h1>
+<article id="IDX2" aria-label="The SGPlot Procedure">
+<h1 class="contentitem toc">The SGPlot Procedure</h1>
+<div class="c">
+<img style="height: 192px; width: 288px" alt="The SGPlot Procedure" src="data:image/png;base64,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"/>
+</div>
+</article>
+</section>
+</td><td class="c layoutregion" style="border-spacing: 30px"><section data-name="SGPlot" data-sec-type="proc">
+<h1 class="contentprocname toc">The SGPlot Procedure</h1>
+<article id="IDX3" aria-label="The SGPlot Procedure">
+<h1 class="contentitem toc">The SGPlot Procedure</h1>
+<div class="c">
+<img style="height: 192px; width: 288px" alt="The SGPlot Procedure" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASAAAADACAIAAAAr0inhAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAQ5klEQVR4nO3df1RT9f8H8NcGGxswHGx8gAAlBbXUVEhn9ukbaJ6PmZ+DKRP7mqYHzR+ZJAL2Kc2jJ78gJwPLUL+ZBueEKWpqfjRU0PyqKEYGSfX1xwf8AUfHQAWGAwb3+8e+rclwH2Z7b4z7fPzT7pvt3hfY89x73/fuvgRlZWUEAGy4E9Ezzzzj7DIAeqHy8nKhs2sA6M0QMACGEDAAhhAwAIYQMACGEDDX09zcvHLlyoiICKlUGhYW9t577zU2NnbngwKBQCAQENFLL700YcIExmUCEQLmihYsWLBu3bqkpCStVrt3795ffvklJSXFpjUcP3782LFjjMqDh5SVlXHgUmQyGRHV1tZ2Gtfr9cuWLQsMDAwMDExJSWltbeU47u7duxMnTpRKpcOGDTP+i3McZ/nCcnDRokXe3t4hISE7duxYs2ZNcHBwUFDQoUOHHPqruriysjIEzPUMGjSIiAYOHDh16tTMzMyffvrJOL5q1Soi2rp168aNG4lo7dq1HMctXbqUiD799NOioiKbApaWlnbx4kXj6/Xr1//www9EFBER4Zzf2TUhYC6psLDQz8/P/DAkPz+f47gBAwYQkVarvX37NhGFh4dzHBcWFkZEd+7c4brKlZWAcRzX3t7e6bVQKHTO7+yaysrKBGVlZbhVyuU0NjZ+/fXXJ06cqKysPHfu3KhRo0pKSqRSqV6vNxgMHMeJRCKpVNrc3CyRSFpaWgwGg5ubm3GGg+M4yxdEZH2w02voDtwq5apkMtn8+fPz8vKOHz9ORLdu3SKi4OBgIrp7925dXZ1p0bivu3fvXpfrEQqFRNTR0eGownkHAXM9ixcvfuWVV86dO6fT6TZt2kREc+bMIaKZM2cS0Z49e3bt2kVEs2bNIqJJkyYRUX5+fmFhoeWqwsPDiej8+fOffPKJ434BXsE5mMtpbGxcvXp1eHi4h4dHREREenq68bBQr9e/8847AQEBAQEBSUlJLS0tHMdpNJrx48dLJJIuZxGPHDkSEhIil8tff/11y59aeQ3dgXMwAIZwDgbAFgIGwBACBsAQAgbAEAIGwJC7swvo2lf5+5qampxdBYBtnggM+PvLfzMf6aEBa2pqWjB3trOrALDN1h25nUZwiAjAEAIGwJB9AlZTU5OSkmK829pI8DAiqq6ujomJkclkMTEx1dXVdtkuQA9nn4CNGDHCYDB0GjS/KYuIUlNTY2Nja2pqVCpVamqqXbYL0MPZZ5JDo9EQUVZWlpX3FBUVZWdny2SyxMTEqKgou2wXoIdjNYvo5+cXEBDQ3NwcGRn58ccfR0VF1dfXe3t7E5FSqTR+Ycnk9h3Nr/972bQolUrp0V9hAuiZ5HK55SCrgBkjpNPp9uzZExcXV1lZqVAo6uvr/f39tVqtUqk0f7OnpzQ4+AnTosjdnYg8PDwY1QbgMKwCNn369JSUlKFDh7q7uxsnOaKjo7ds2bJs2bKsrKzo6GjzN/vIZD4yWac1GPdjAC6N1TS9Wq1OSEhQKpVZWVl5eXlEtH79+sLCwqCgoOLi4vT0dEbbBehR7LkH48weh6JWq9VqtflPQ0NDT548acfNAfR8uNAMwBACBsBQD73ZF7qjvqHltypHXMwYOUgh9cD/Ko8DfzUXdulq/T82ldj0kdvaZrHYzc/HtksgeevG9wvytukjYISAubD/iAw6sz3Wpo8syTjzVJj8relDGJUEneAcDIAhBAyAIQQMgCEEDIAhBAyAIQQMgCEEDIAhBAyAIQQMgCEEDIAhBAyAIQQMgCEEDIAhBAyAIQQMgCEEDIAhBAyAIQQMgCEEDIAhBAyAIQQMgCEEDIAhBAyAIQQMgCFWTdCN0tLSTINogg48xLAJukaj+fLLL02LaIIOPGSfgGk0mszMzE6Dq1atSklJMS0WFRXNnTvX2AT9xIkTdtkuQA/H6tn0FRUVFy5c2Lx58/z5840jVpqg36mtvXz1mmlRKpES0f379xnV1gPp9fplSUlmDQxZKdc+eUH84PT+26w35Cvvk5aWxnorPUqfPn0sB1kFbPny5RkZGULhH3tIK03QJR4eCl8/06JYLCIikUjEqLYeSK/Xf7Nv34oPmHfWHfT//+3LdCsN9+/l5Wz56KOPmG7FJbAKWEFBQUFBgfG1QCDgOM5KE/Q+Pj59fHzMRwq//x9PT09GtfVABoPBXSR6JVb979/qCmo1d3bmbOXVv+CjsJqm535Hv/duRhN04CFWTdAtB9EEHXgIF5oBGELAABhCwAAYQsD4pbHZYGhnf7kNfoeA8UiDru2t9OJ/fFqKjDkMAsYXDbq2JevPjRqiFAoFyJjDsLrQDLZq94z48turjFbe0tp+8NTNkL94yjxFg8J8jp6rmfn+qb8994RQ2PkLEHaha2pqEwWyWLPLQcB6DIFbs77zNxLsoqWt42hxdZBSOnygn3ETfx3xl+9L7xw+Ux0dFcAiYw9a20ngZvfVuiIErKdw0/22WD2YxZo/2/2bp8Ttv1c+7+72R5ZmTuz/avKJ/sGySX8NsfsWazV3TuXiK39EOAfjg4VxA8ND+5ifdzXo2hI/Kpk2vh+LdIE5BKz3cxMK/2vJSNPchmm24+34p5xdWu+HgPGCKWMrPvkB6XIkBIwvjBlzdxMiXY6ESQ4ecRMK05ZEMpqahy5hD8YvSJeDIWAADFkL2KFDh4KDgwVmHFYWQO9g7Rxs3rx5+/fvV6lUiJYDGNoM/zyQ7+wq7KPh/j1nl9BTWAtYbGzszz//PGbMGIdVw1tisXh6/PR//XaR9YbKNaHeYn1/eS3rDcXHx7PehEuwFrAXXnhh1qxZb775pmmky6duwJ8nkUhyzJ6CzM6SjDNPhcnfmj7EAdsCsn4OlpycXFJS0tHRYf6IKADoPmsBW7hwYXFxMU7AAB6btUPENWvWEFFiYqJpBDsxAJtYCxjiBPAnWQuY5cEhIgdgE2vnYKa5jZaWlrlz5x48eNBhZQH0Dt26VUosFm/YsGHx4sWsqwHoZboVsI6OjoKCgtbWVtbVAPQy3T0H8/f3t+xhCQDWdescjOM4jUYzc+bMR73Tsgn63r17hw8f7uXlFRUVderUKUITdOClrgM2efJkIhJYeNRaLJug79q1a/PmzVqtdsWKFcZkogk68FDXh4iHDh0iWyblNRoNEWVlZZlGdu/eTUQPHjwQCoVSqZSIioqKsrOzjU3Qo6Ki/mTdAC6h64A9amdl63UwT09PgUCwb98+stoEvbau7tq/qkyLEokHETU0NNi0LeiO1tZWvV6Pvy0LPg+3QTbqOmDGIGVnZ1dVVWVkZHAct3z58rCwMFs32dLScvjw4cTExClTplhpgu7u5iaVSkyLHmIxEbm54dGw9icQCIRCIf62DmNtFnHdunXl5eVEJBAIVq9eHRoaunTp0m6uNz4+Pjk5eejQoc3NzcZ/TitN0H3lcl+53Hzk+zPFXl5eNv0m0B0ikUgsFuNv6zDWZhH79u2bmZl5//79+vr6tWvXDh8+vPvrjYuLS0hIUCqVmzZtys/PJzRBB16ytgfLy8t7++23Q0NDRSJRdHR0Xl6e9XWZn6Gp1Wq1Wm3+UzRBBx6yFrAnn3zSOJ0IAI/H2iHirVu3pk2bplAo/Pz84uLicHUYwFbWAjZ79uzBgwdfu3bt6tWr/fr1e+ONNxxWFkDvYO0Q8cKFCwcOHJDJZET0wQcfhISg1Q2AbaztwUaNGpWenn7v3j3jLKJKpXJYWQC9g7WA5ebm/vrrr/379w8PD6+qqsrJyXFYWQC9g7VDxJCQEONdTgDweLreg1VWVr777rvG11999ZVcLn/66adLS0sdWBhAb9B1wObNm7dgwQIiunLlysqVK8vLyxMSEhYtWuTY2gBcXtcBO3v2bGBgIBF9+OGHycnJffv2Xbhw4aVLlxxbG4DL6/ocbNCgQbt27Ro8ePDJkye3bt1KRJWVlaNHj3ZsbQAur+uAbdy4cfbs2Xq9fufOnRKJhIi2bdv2+eefO7Y2AJfXdcBefPHF69evm4+Yf1sZALoJTdBdGMeRob3Dpo90dHDtHVybwbZPidzRavgxIWAu7OCpKvWK4zZ9hOM4IkFy1jmbPvXzrrhB/eT//n1gAQFzYbEvhrWem9f99xsMhtLSUrFYPHLkSHZVgTkEjC90Ot24ceMMBoNOpxs2bNju3bvR+c0BcGzNF1988cWAAQNKS0srKiquX79+/Lhtx5bweBAwvtBqtQMHDiQiNze3/v37a7VaZ1fECzhE5Iv4+Phx48b5+vo2NjaePn36s88+c3ZFvIA9GF8MGTLk8OHDly9frqurO336tEKhcHZFvIA9GI9ERUXhoeUOhj0YAEMIGABDCBgAQwgYAEMIGL/cvHmzU+8oYAoB44u2trYpU6Y899xzERERy5cvd3Y5fIGA8UVOTk5bW1tVVdWNGze+++6706dPO7siXkDA+KKqqmrs2LHu7u7e3t6RkZFVVVXOrogX7BOwmpqalJQU87uz9+/fHxUV5eXl9eyzzxYXFxNRdXV1TEyMTCaLiYlBHwnHmzx58pYtW7755pucnJxjx47FxMQ4uyJesE/ARowYYTAYzEdyc3MzMzNra2uTkpJmzJhBRKmpqbGxsTU1NSqVKjU11S7bhe4bM2bM5s2bt2/ffvDgwW+//TY4ONjZFfGCfW6V0mg09PBzO0yPBB4zZozxRVFRUXZ2tkwmS0xM7HTDTl393aobN0yLHh4eRNTU1GSX2sAkOjra1LwXf1678/b2thxkey9iXV3djBkzMjIyiKi+vt5YgVKptJwpNmuOScQZRzgCcHEMA1ZRUREfH//+++/Hx8cTkUKhqK+v9/f312q1SqXS/J0KP1+Fn6/5yJnzJca2SQAujdUs4oEDB6ZOnbp9+/bXXnvNOBIdHb1ly5ampqasrCzTgQpA78YqYK+++urly5dVKpVAIDDOLq5fv76wsDAoKKi4uDg9PZ3RdgF6FHseIpqfNXV0dH7yXmho6MmTJ+24OYCeDxeaARhCwAAYQsAAGELAABhCwAAYQsAAGELAABjCcxF55Mcff9y+fbtYLE5MTOzXr5+zy+EF7MH4oqKi4uWXX46IiPD19X3++efxZA7HwB6ML3bv3r1w4cLExEQiunTp0tGjR023iQI72IPxhUKhuHr1KhG1t7dXVlbi2fSOgYDxRUJCwpUrV0aPHj106NC+fftOmDDB2RXxAg4R+cLLy+vs2bMlJSUSiSQyMtLZ5fAFAsYj7u7uY8eOdXYV/IJDRACGEDAAhhAwAIYQMACGMMnBIzdu3Ni5c6eHh8ecOXPkcrmzy+EF7MH44vr16yqVSqPRXLp0SaVS4cGjjoGA8UVubu7s2bM3bNiwbdu2wYMHHzlyxNkV8QICxhceHh6NjY3G142NjRKJxLn18ATOwfgiISFh9OjRU6dObWhoaG1tnThxorMr4gUEjC8UCsXFixcLCgrEYvGkSZNEIpGzK+IFBIxHfHx81Gq1s6vgF5yDATCEgAEwhIABMISAATDEqgm65QiaoAMPsWqCbjmCJujAQ6yaoFuOWGmCfvfe/Zu3/tinicViItLpdHapDcAxvLy8LAcddx3MShN0g8Gge9BsWjQ272tvb3dYbQCMOC5gVpqg+ysV/sqHniJ2vvRHHx8fh9UGwIjjZhHRBB14yHEBQxN04CFWTdAtR9AEHXgIF5oBGELAABhCwAAY6qHfB5N5e23dkevsKgBs80RQQKeRHhqw/1RPc3YJAHaAQ0QAhhAwAIYQMACG3ImovLzc2WUA9E7/B61r1gtS1uU5AAAAAElFTkSuQmCC"/>
+</div>
+</article>
+</section>
+</td><td class="c layoutregion" style="border-spacing: 30px"><section data-name="SGPlot" data-sec-type="proc">
+<h1 class="contentprocname toc">The SGPlot Procedure</h1>
+<article id="IDX4" aria-label="The SGPlot Procedure">
+<h1 class="contentitem toc">The SGPlot Procedure</h1>
+<div class="c">
+<img style="height: 192px; width: 288px" alt="The SGPlot Procedure" src="data:image/png;base64,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"/>
+</div>
+</article>
+</section>
+</td></tr>
+<tr class="layoutregion" style="border-spacing: 30px">
+<td class="c layoutregion" style="border-spacing: 30px"><section data-name="SGPlot" data-sec-type="proc">
+<h1 class="contentprocname toc">The SGPlot Procedure</h1>
+<article id="IDX5" aria-label="The SGPlot Procedure">
+<h1 class="contentitem toc">The SGPlot Procedure</h1>
+<div class="c">
+<img style="height: 192px; width: 288px" alt="The SGPlot Procedure" src="data:image/png;base64,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"/>
+</div>
+</article>
+</section>
+</td><td class="c layoutregion" style="border-spacing: 30px"><section data-name="SGPlot" data-sec-type="proc">
+<h1 class="contentprocname toc">The SGPlot Procedure</h1>
+<article id="IDX6" aria-label="The SGPlot Procedure">
+<h1 class="contentitem toc">The SGPlot Procedure</h1>
+<div class="c">
+<img style="height: 192px; width: 288px" alt="The SGPlot Procedure" src="data:image/png;base64,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"/>
+</div>
+</article>
+</section>
+</td><td class="c layoutregion" style="border-spacing: 30px"><section data-name="SGPlot" data-sec-type="proc">
+<h1 class="contentprocname toc">The SGPlot Procedure</h1>
+<article id="IDX7" aria-label="The SGPlot Procedure">
+<h1 class="contentitem toc">The SGPlot Procedure</h1>
+<div class="c">
+<img style="height: 192px; width: 288px" alt="The SGPlot Procedure" src="data:image/png;base64,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"/>
+</div>
+</article>
+</section>
+</td></tr>
+</table>
+<section data-name="Print" data-sec-type="proc">
+<hr class="pagebreak"/>
+<h1 class="contentprocname toc">The Print Procedure</h1>
+<article id="IDX8" aria-label="Data Set WORK._02_EDA_FREQ">
+<h1 class="contentitem toc">Data Set WORK._02_EDA_FREQ</h1>
+<table class="table" style="border-spacing: 0" aria-label="Data Set WORK._02_EDA_FREQ">
+<caption aria-label="Data Set WORK._02_EDA_FREQ"></caption>
+<colgroup><col/></colgroup><colgroup><col/><col/><col/><col/><col/></colgroup>
+<thead>
+<tr>
+<th class="r header" scope="col">Obs</th>
+<th class="header" scope="col">variable</th>
+<th class="r header" scope="col">level</th>
+<th class="r header" scope="col">Event</th>
+<th class="r header" scope="col">COUNT</th>
+<th class="r header" scope="col">PERCENT</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="r rowheader" scope="row">1</th>
+<td class="data">gender</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">71</td>
+<td class="r data">23.7458</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">2</th>
+<td class="data">gender</td>
+<td class="r data">0</td>
+<td class="r data">1</td>
+<td class="r data">34</td>
+<td class="r data">11.3712</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">3</th>
+<td class="data">gender</td>
+<td class="r data">1</td>
+<td class="r data">0</td>
+<td class="r data">132</td>
+<td class="r data">44.1472</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">4</th>
+<td class="data">gender</td>
+<td class="r data">1</td>
+<td class="r data">1</td>
+<td class="r data">62</td>
+<td class="r data">20.7358</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">5</th>
+<td class="data">smoking</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">137</td>
+<td class="r data">45.8194</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">6</th>
+<td class="data">smoking</td>
+<td class="r data">0</td>
+<td class="r data">1</td>
+<td class="r data">66</td>
+<td class="r data">22.0736</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">7</th>
+<td class="data">smoking</td>
+<td class="r data">1</td>
+<td class="r data">0</td>
+<td class="r data">66</td>
+<td class="r data">22.0736</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">8</th>
+<td class="data">smoking</td>
+<td class="r data">1</td>
+<td class="r data">1</td>
+<td class="r data">30</td>
+<td class="r data">10.0334</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">9</th>
+<td class="data">diabetes</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">118</td>
+<td class="r data">39.4649</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">10</th>
+<td class="data">diabetes</td>
+<td class="r data">0</td>
+<td class="r data">1</td>
+<td class="r data">56</td>
+<td class="r data">18.7291</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">11</th>
+<td class="data">diabetes</td>
+<td class="r data">1</td>
+<td class="r data">0</td>
+<td class="r data">85</td>
+<td class="r data">28.4281</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">12</th>
+<td class="data">diabetes</td>
+<td class="r data">1</td>
+<td class="r data">1</td>
+<td class="r data">40</td>
+<td class="r data">13.3779</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">13</th>
+<td class="data">bp</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">137</td>
+<td class="r data">45.8194</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">14</th>
+<td class="data">bp</td>
+<td class="r data">0</td>
+<td class="r data">1</td>
+<td class="r data">57</td>
+<td class="r data">19.0635</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">15</th>
+<td class="data">bp</td>
+<td class="r data">1</td>
+<td class="r data">0</td>
+<td class="r data">66</td>
+<td class="r data">22.0736</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">16</th>
+<td class="data">bp</td>
+<td class="r data">1</td>
+<td class="r data">1</td>
+<td class="r data">39</td>
+<td class="r data">13.0435</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">17</th>
+<td class="data">anaemia</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">120</td>
+<td class="r data">40.1338</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">18</th>
+<td class="data">anaemia</td>
+<td class="r data">0</td>
+<td class="r data">1</td>
+<td class="r data">50</td>
+<td class="r data">16.7224</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">19</th>
+<td class="data">anaemia</td>
+<td class="r data">1</td>
+<td class="r data">0</td>
+<td class="r data">83</td>
+<td class="r data">27.7592</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">20</th>
+<td class="data">anaemia</td>
+<td class="r data">1</td>
+<td class="r data">1</td>
+<td class="r data">46</td>
+<td class="r data">15.3846</td>
+</tr>
+</tbody>
+</table>
+</article>
+</section>
+<section data-name="Means" data-sec-type="proc">
+<hr class="pagebreak"/>
+<div id="IDX9" class="proc_title_group">
+<p class="c proctitle">The MEANS Procedure</p>
+</div>
+<h1 class="contentprocname toc">The Means Procedure</h1>
+<article aria-label="Summary statistics">
+<h1 class="contentitem toc">Summary statistics</h1>
+<table class="table" style="border-spacing: 0" aria-label="Summary statistics">
+<caption aria-label="Summary statistics"></caption>
+<colgroup><col/></colgroup><colgroup><col/><col/><col/><col/><col/><col/></colgroup>
+<thead>
+<tr>
+<th class="b header" scope="col">Variable</th>
+<th class="r b header" scope="col">Minimum</th>
+<th class="r b header" scope="col">Lower Quartile</th>
+<th class="r b header" scope="col">Median</th>
+<th class="r b header" scope="col">Mean</th>
+<th class="r b header" scope="col">Upper Quartile</th>
+<th class="r b header" scope="col">Maximum</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="data">
+<div class="stacked-cell">
+<div>TIME</div>
+<div>Creatinine</div>
+<div>Sodium</div>
+<div>CPK</div>
+<div>Age</div>
+<div>platelets</div>
+<div>Ejection_fraction</div>
+</div>
+</th>
+<td class="r data">
+<div class="stacked-cell">
+<div class="r">4.00</div>
+<div class="r">0.50</div>
+<div class="r">113.00</div>
+<div class="r">23.00</div>
+<div class="r">40.00</div>
+<div class="r">25100.00</div>
+<div class="r">14.00</div>
+</div>
+</td>
+<td class="r data">
+<div class="stacked-cell">
+<div class="r">73.00</div>
+<div class="r">0.90</div>
+<div class="r">134.00</div>
+<div class="r">115.00</div>
+<div class="r">51.00</div>
+<div class="r">212000.00</div>
+<div class="r">30.00</div>
+</div>
+</td>
+<td class="r data">
+<div class="stacked-cell">
+<div class="r">115.00</div>
+<div class="r">1.10</div>
+<div class="r">137.00</div>
+<div class="r">250.00</div>
+<div class="r">60.00</div>
+<div class="r">262000.00</div>
+<div class="r">38.00</div>
+</div>
+</td>
+<td class="r data">
+<div class="stacked-cell">
+<div class="r">130.26</div>
+<div class="r">1.39</div>
+<div class="r">136.63</div>
+<div class="r">581.84</div>
+<div class="r">60.83</div>
+<div class="r">263358.03</div>
+<div class="r">38.08</div>
+</div>
+</td>
+<td class="r data">
+<div class="stacked-cell">
+<div class="r">205.00</div>
+<div class="r">1.40</div>
+<div class="r">140.00</div>
+<div class="r">582.00</div>
+<div class="r">70.00</div>
+<div class="r">304000.00</div>
+<div class="r">45.00</div>
+</div>
+</td>
+<td class="r data">
+<div class="stacked-cell">
+<div class="r">285.00</div>
+<div class="r">9.40</div>
+<div class="r">148.00</div>
+<div class="r">7861.00</div>
+<div class="r">95.00</div>
+<div class="r">850000.00</div>
+<div class="r">80.00</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</article>
+</section>
+<section data-name="Freq" data-sec-type="proc">
+<hr class="pagebreak"/>
+<div id="IDX10" class="proc_title_group">
+<p class="c proctitle">The FREQ Procedure</p>
+</div>
+<h1 class="contentprocname toc">The Freq Procedure</h1>
+<section>
+<h1 class="contentfolder toc">Table age_gp</h1>
+<article aria-label="One-Way Frequencies">
+<h1 class="contentitem toc">One-Way Frequencies</h1>
+<table class="table" style="border-spacing: 0" aria-label="One-Way Frequencies">
+<caption aria-label="One-Way Frequencies"></caption>
+<colgroup><col/></colgroup><colgroup><col/><col/><col/><col/></colgroup>
+<thead>
+<tr>
+<th class="b header" scope="col">age_gp</th>
+<th class="r b header" scope="col">Frequency</th>
+<th class="r b header" scope="col">Percent</th>
+<th class="r b header" scope="col">Cumulative<br/>Frequency</th>
+<th class="r b header" scope="col">Cumulative<br/>Percent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="rowheader" scope="row">55-64 years</th>
+<td class="r data">89</td>
+<td class="r data">29.77</td>
+<td class="r data">89</td>
+<td class="r data">29.77</td>
+</tr>
+<tr>
+<th class="rowheader" scope="row">65-74 years</th>
+<td class="r data">74</td>
+<td class="r data">24.75</td>
+<td class="r data">163</td>
+<td class="r data">54.52</td>
+</tr>
+<tr>
+<th class="rowheader" scope="row">&lt;55 years</th>
+<td class="r data">95</td>
+<td class="r data">31.77</td>
+<td class="r data">258</td>
+<td class="r data">86.29</td>
+</tr>
+<tr>
+<th class="rowheader" scope="row">&gt;=75 years</th>
+<td class="r data">41</td>
+<td class="r data">13.71</td>
+<td class="r data">299</td>
+<td class="r data">100.00</td>
+</tr>
+</tbody>
+</table>
+</article>
+</section>
+<section id="IDX11">
+<h1 class="contentfolder toc">Table ef_gp</h1>
+<article aria-label="One-Way Frequencies">
+<h1 class="contentitem toc">One-Way Frequencies</h1>
+<table class="table" style="border-spacing: 0" aria-label="One-Way Frequencies">
+<caption aria-label="One-Way Frequencies"></caption>
+<colgroup><col/></colgroup><colgroup><col/><col/><col/><col/></colgroup>
+<thead>
+<tr>
+<th class="b header" scope="col">ef_gp</th>
+<th class="r b header" scope="col">Frequency</th>
+<th class="r b header" scope="col">Percent</th>
+<th class="r b header" scope="col">Cumulative<br/>Frequency</th>
+<th class="r b header" scope="col">Cumulative<br/>Percent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="rowheader" scope="row">40-49%</th>
+<td class="r data">57</td>
+<td class="r data">19.06</td>
+<td class="r data">57</td>
+<td class="r data">19.06</td>
+</tr>
+<tr>
+<th class="rowheader" scope="row">50-74%</th>
+<td class="r data">59</td>
+<td class="r data">19.73</td>
+<td class="r data">116</td>
+<td class="r data">38.80</td>
+</tr>
+<tr>
+<th class="rowheader" scope="row">&lt;40%</th>
+<td class="r data">182</td>
+<td class="r data">60.87</td>
+<td class="r data">298</td>
+<td class="r data">99.67</td>
+</tr>
+<tr>
+<th class="rowheader" scope="row">&gt;=75%</th>
+<td class="r data">1</td>
+<td class="r data">0.33</td>
+<td class="r data">299</td>
+<td class="r data">100.00</td>
+</tr>
+</tbody>
+</table>
+</article>
+</section>
+<section id="IDX12">
+<h1 class="contentfolder toc">Table ef_paper</h1>
+<article aria-label="One-Way Frequencies">
+<h1 class="contentitem toc">One-Way Frequencies</h1>
+<table class="table" style="border-spacing: 0" aria-label="One-Way Frequencies">
+<caption aria-label="One-Way Frequencies"></caption>
+<colgroup><col/></colgroup><colgroup><col/><col/><col/><col/></colgroup>
+<thead>
+<tr>
+<th class="b header" scope="col">ef_paper</th>
+<th class="r b header" scope="col">Frequency</th>
+<th class="r b header" scope="col">Percent</th>
+<th class="r b header" scope="col">Cumulative<br/>Frequency</th>
+<th class="r b header" scope="col">Cumulative<br/>Percent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="rowheader" scope="row">31-45%</th>
+<td class="r data">146</td>
+<td class="r data">48.83</td>
+<td class="r data">146</td>
+<td class="r data">48.83</td>
+</tr>
+<tr>
+<th class="rowheader" scope="row">&lt;=30%</th>
+<td class="r data">93</td>
+<td class="r data">31.10</td>
+<td class="r data">239</td>
+<td class="r data">79.93</td>
+</tr>
+<tr>
+<th class="rowheader" scope="row">&gt;45%</th>
+<td class="r data">60</td>
+<td class="r data">20.07</td>
+<td class="r data">299</td>
+<td class="r data">100.00</td>
+</tr>
+</tbody>
+</table>
+</article>
+</section>
+<section id="IDX13">
+<h1 class="contentfolder toc">Table sodium_gp</h1>
+<article aria-label="One-Way Frequencies">
+<h1 class="contentitem toc">One-Way Frequencies</h1>
+<table class="table" style="border-spacing: 0" aria-label="One-Way Frequencies">
+<caption aria-label="One-Way Frequencies"></caption>
+<colgroup><col/></colgroup><colgroup><col/><col/><col/><col/></colgroup>
+<thead>
+<tr>
+<th class="b header" scope="col">sodium_gp</th>
+<th class="r b header" scope="col">Frequency</th>
+<th class="r b header" scope="col">Percent</th>
+<th class="r b header" scope="col">Cumulative<br/>Frequency</th>
+<th class="r b header" scope="col">Cumulative<br/>Percent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="rowheader" scope="row">135-145mmol/L</th>
+<td class="r data">214</td>
+<td class="r data">71.57</td>
+<td class="r data">214</td>
+<td class="r data">71.57</td>
+</tr>
+<tr>
+<th class="rowheader" scope="row">&lt;135mmol/L</th>
+<td class="r data">83</td>
+<td class="r data">27.76</td>
+<td class="r data">297</td>
+<td class="r data">99.33</td>
+</tr>
+<tr>
+<th class="rowheader" scope="row">&gt;145mmol/L</th>
+<td class="r data">2</td>
+<td class="r data">0.67</td>
+<td class="r data">299</td>
+<td class="r data">100.00</td>
+</tr>
+</tbody>
+</table>
+</article>
+</section>
+<section id="IDX14">
+<h1 class="contentfolder toc">Table creatinine_excess</h1>
+<article aria-label="One-Way Frequencies">
+<h1 class="contentitem toc">One-Way Frequencies</h1>
+<table class="table" style="border-spacing: 0" aria-label="One-Way Frequencies">
+<caption aria-label="One-Way Frequencies"></caption>
+<colgroup><col/></colgroup><colgroup><col/><col/><col/><col/></colgroup>
+<thead>
+<tr>
+<th class="r b header" scope="col">creatinine_excess</th>
+<th class="r b header" scope="col">Frequency</th>
+<th class="r b header" scope="col">Percent</th>
+<th class="r b header" scope="col">Cumulative<br/>Frequency</th>
+<th class="r b header" scope="col">Cumulative<br/>Percent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="r rowheader" scope="row">0</th>
+<td class="r data">193</td>
+<td class="r data">64.55</td>
+<td class="r data">193</td>
+<td class="r data">64.55</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">1</th>
+<td class="r data">106</td>
+<td class="r data">35.45</td>
+<td class="r data">299</td>
+<td class="r data">100.00</td>
+</tr>
+</tbody>
+</table>
+</article>
+</section>
+<section id="IDX15">
+<h1 class="contentfolder toc">Table creatinine_paper</h1>
+<article aria-label="One-Way Frequencies">
+<h1 class="contentitem toc">One-Way Frequencies</h1>
+<table class="table" style="border-spacing: 0" aria-label="One-Way Frequencies">
+<caption aria-label="One-Way Frequencies"></caption>
+<colgroup><col/></colgroup><colgroup><col/><col/><col/><col/></colgroup>
+<thead>
+<tr>
+<th class="r b header" scope="col">creatinine_paper</th>
+<th class="r b header" scope="col">Frequency</th>
+<th class="r b header" scope="col">Percent</th>
+<th class="r b header" scope="col">Cumulative<br/>Frequency</th>
+<th class="r b header" scope="col">Cumulative<br/>Percent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="r rowheader" scope="row">0</th>
+<td class="r data">232</td>
+<td class="r data">77.59</td>
+<td class="r data">232</td>
+<td class="r data">77.59</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">1</th>
+<td class="r data">67</td>
+<td class="r data">22.41</td>
+<td class="r data">299</td>
+<td class="r data">100.00</td>
+</tr>
+</tbody>
+</table>
+</article>
+</section>
+<section id="IDX16">
+<h1 class="contentfolder toc">Table platelets_gp</h1>
+<article aria-label="One-Way Frequencies">
+<h1 class="contentitem toc">One-Way Frequencies</h1>
+<table class="table" style="border-spacing: 0" aria-label="One-Way Frequencies">
+<caption aria-label="One-Way Frequencies"></caption>
+<colgroup><col/></colgroup><colgroup><col/><col/><col/><col/></colgroup>
+<thead>
+<tr>
+<th class="b header" scope="col">platelets_gp</th>
+<th class="r b header" scope="col">Frequency</th>
+<th class="r b header" scope="col">Percent</th>
+<th class="r b header" scope="col">Cumulative<br/>Frequency</th>
+<th class="r b header" scope="col">Cumulative<br/>Percent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="rowheader" scope="row">Normal</th>
+<td class="r data">259</td>
+<td class="r data">86.62</td>
+<td class="r data">259</td>
+<td class="r data">86.62</td>
+</tr>
+<tr>
+<th class="rowheader" scope="row">Thrombocytopenia</th>
+<td class="r data">27</td>
+<td class="r data">9.03</td>
+<td class="r data">286</td>
+<td class="r data">95.65</td>
+</tr>
+<tr>
+<th class="rowheader" scope="row">Thrombocytosis</th>
+<td class="r data">13</td>
+<td class="r data">4.35</td>
+<td class="r data">299</td>
+<td class="r data">100.00</td>
+</tr>
+</tbody>
+</table>
+</article>
+</section>
+<section id="IDX17">
+<h1 class="contentfolder toc">Table platelets_paper</h1>
+<article aria-label="One-Way Frequencies">
+<h1 class="contentitem toc">One-Way Frequencies</h1>
+<table class="table" style="border-spacing: 0" aria-label="One-Way Frequencies">
+<caption aria-label="One-Way Frequencies"></caption>
+<colgroup><col/></colgroup><colgroup><col/><col/><col/><col/></colgroup>
+<thead>
+<tr>
+<th class="b header" scope="col">platelets_paper</th>
+<th class="r b header" scope="col">Frequency</th>
+<th class="r b header" scope="col">Percent</th>
+<th class="r b header" scope="col">Cumulative<br/>Frequency</th>
+<th class="r b header" scope="col">Cumulative<br/>Percent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="rowheader" scope="row">&lt;=Q1</th>
+<td class="r data">75</td>
+<td class="r data">25.08</td>
+<td class="r data">75</td>
+<td class="r data">25.08</td>
+</tr>
+<tr>
+<th class="rowheader" scope="row">&gt;=Q3</th>
+<td class="r data">75</td>
+<td class="r data">25.08</td>
+<td class="r data">150</td>
+<td class="r data">50.17</td>
+</tr>
+<tr>
+<th class="rowheader" scope="row">Q1-Q3</th>
+<td class="r data">149</td>
+<td class="r data">49.83</td>
+<td class="r data">299</td>
+<td class="r data">100.00</td>
+</tr>
+</tbody>
+</table>
+</article>
+</section>
+<section id="IDX18">
+<h1 class="contentfolder toc">Table cpk_excess</h1>
+<article aria-label="One-Way Frequencies">
+<h1 class="contentitem toc">One-Way Frequencies</h1>
+<table class="table" style="border-spacing: 0" aria-label="One-Way Frequencies">
+<caption aria-label="One-Way Frequencies"></caption>
+<colgroup><col/></colgroup><colgroup><col/><col/><col/><col/></colgroup>
+<thead>
+<tr>
+<th class="r b header" scope="col">cpk_excess</th>
+<th class="r b header" scope="col">Frequency</th>
+<th class="r b header" scope="col">Percent</th>
+<th class="r b header" scope="col">Cumulative<br/>Frequency</th>
+<th class="r b header" scope="col">Cumulative<br/>Percent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="r rowheader" scope="row">0</th>
+<td class="r data">77</td>
+<td class="r data">25.75</td>
+<td class="r data">77</td>
+<td class="r data">25.75</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">1</th>
+<td class="r data">222</td>
+<td class="r data">74.25</td>
+<td class="r data">299</td>
+<td class="r data">100.00</td>
+</tr>
+</tbody>
+</table>
+</article>
+</section>
+</section>
+</div>
+</body>
+</html>
