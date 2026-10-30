@@ -98,38 +98,42 @@ run;
 title;
 
 /* Identify obs that disproportionately influence the estimated reg coeff for specific predictor */
-proc sgplot data = _05_influence_diag;
-title "Normalised Age";
-scatter x=obs_id y=DFBETA_normalised_Age;
-run;
-title;
+symbol1 value=circle colour=blue;
 
-proc sgplot data = _05_influence_diag;
-title "EF group - 40-49%";
-scatter x=obs_id y="DFBETA_ef_gp40-49%"n;
+proc gplot data=_05_influence_diag;
+    title "Normalised Age";
+    plot DFBETA_normalised_Age * obs_id;
 run;
-title;
+quit;
 
-proc sgplot data = _05_influence_diag;
-title "EF group - 50-74%";
-scatter x=obs_id y="DFBETA_ef_gp50-74%"n;
+proc gplot data=_05_influence_diag;
+    title "EF group - 40-49%";
+    plot "DFBETA_ef_gp40-49%"n * obs_id;
 run;
-title;
+quit;
 
-proc sgplot data = _05_influence_diag;
-title "BP";
-scatter x=obs_id y=DFBETA_BP;
+proc gplot data=_05_influence_diag;
+    title "EF group - 50-74%";
+    plot "DFBETA_ef_gp50-74%"n * obs_id;
 run;
-title;
+quit;
 
-proc sgplot data = _05_influence_diag;
-title "Log creatinine";
-scatter x=obs_id y=DFBETA_log_creatinine;
+proc gplot data=_05_influence_diag;
+    title "BP";
+    plot DFBETA_BP * obs_id;
 run;
-title;
+quit;
 
-proc sgplot data = _05_influence_diag;
-title "Anaemia";
-scatter x=obs_id y=DFBETA_anaemia;
+proc gplot data=_05_influence_diag;
+    title "Log creatinine";
+    plot DFBETA_log_creatinine * obs_id;
 run;
+quit;
+
+proc gplot data=_05_influence_diag;
+    title "Anaemia";
+    plot DFBETA_anaemia * obs_id;
+run;
+quit;
+
 title;
